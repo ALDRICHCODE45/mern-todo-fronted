@@ -83,9 +83,18 @@ export const TodoView = () => {
           </div>
         </div>
 
-        {todos.map((todo) => (
-          <Todo key={todo.id} name={todo.name} id={todo.id} />
-        ))}
+        {todos.length ? (
+          todos.map((todo) => (
+            <Todo
+              key={todo.id}
+              done={todo.done}
+              name={todo.name}
+              id={todo.id}
+            />
+          ))
+        ) : (
+          <h2>Agrega Una tarea</h2>
+        )}
       </div>
     </>
   );

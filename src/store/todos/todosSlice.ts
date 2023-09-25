@@ -13,7 +13,13 @@ interface payloadToUpdate {
   id: number;
 }
 
-const tasks: Task[] = [];
+const tasks: Task[] = [
+  {
+    name: "ir a la escuela",
+    done: true,
+    id: 344,
+  },
+];
 
 export const todosSlice = createSlice({
   name: "todos",
