@@ -5,6 +5,7 @@ import {
   Grid,
   IconButton,
   Toolbar,
+
   //   Typography,
 } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../hooks/store";
@@ -38,6 +39,7 @@ export const Navbar = () => {
           {/* <Typography variant="h6" noWrap component="div">
             {`Hola ${displayName} Bienvenido`}
           </Typography> */}
+
           <Avatar sx={{ bgcolor: "#ff1744" }}>
             {displayName.charAt(0).toUpperCase()}
           </Avatar>

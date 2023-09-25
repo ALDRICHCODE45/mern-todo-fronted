@@ -1,20 +1,37 @@
-import CreateIcon from "@mui/icons-material/Create";
 import DeleteIcon from "@mui/icons-material/Delete";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import { IconButton } from "@mui/material";
 import { useAppDispatch } from "../../hooks/store";
-import { startDeletingTodo } from "../../store/todos/thunks";
+import SaveIcon from "@mui/icons-material/Save";
+import { startDeletingTodo, startUpdatingNote } from "../../store/todos/thunks";
+import { useState } from "react";
 
 interface props {
   name: string;
   id: number;
 }
 
+type name = string;
+
 export const Todo = ({ name, id }: props) => {
   const dispatch = useAppDispatch();
+  const [taskName, setTaskName] = useState<name>();
+  const [saveNote, setSaveNote] = useState<boolean>(false);
 
   const onDeleteTodo = (id: number) => {
     dispatch(startDeletingTodo(id));
+  };
+
+  const onSubmit = (event: React.SyntheticEvent) => {
+    event.preventDefault();
+    console.log(taskName);
+    dispatch(startUpdatingNote(id, taskName as string));
+    setSaveNote(false);
+  };
+
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSaveNote(true);
+    setTaskName(event.target.value);
   };
 
   return (
@@ -29,21 +46,33 @@ export const Todo = ({ name, id }: props) => {
             </h2>
           </div>
           <div className="col px-1 m-1 d-flex align-items-center">
-            <div className="form-control form-control-lg border-3 edit-todo-input bg-transparent rounded px-3">
-              {name}
-            </div>
+            <form onSubmit={onSubmit} className="form-control form-control-lg">
+              <input
+                onChange={onChange}
+                className="form-control form-control-lg border-3 edit-todo-input bg-transparent rounded px-3"
+                defaultValue={name}
+              />
+            </form>
           </div>
           <div className="col-auto m-1 p-0 px-3 d-none"></div>
           <div className="col-auto m-1 p-0 todo-actions">
             <div className=" d-flex align-items-center justify-content-start">
               <h5 className="m-0 p-0 px-2">
-                <IconButton>
-                  <CreateIcon sx={{ color: "#0d6efd" }} />
-                </IconButton>
-              </h5>
-              <h5 className="m-0 p-0 px-2">
                 <IconButton onClick={() => onDeleteTodo(id)}>
                   <DeleteIcon sx={{ color: "#ff0000" }} />
+                </IconButton>
+              </h5>
+              <h5
+                style={{ display: `${saveNote ? "" : "none"}` }}
+                className="m-0 p-0 px-2"
+              >
+                <IconButton
+                  onClick={() => {
+                    dispatch(startUpdatingNote(id, taskName as string));
+                    setSaveNote(false);
+                  }}
+                >
+                  <SaveIcon sx={{ color: "#008F39" }} />
                 </IconButton>
               </h5>
             </div>

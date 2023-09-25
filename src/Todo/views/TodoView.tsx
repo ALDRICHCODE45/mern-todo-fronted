@@ -7,13 +7,17 @@ import { TextField } from "@mui/material";
 
 export const TodoView = () => {
   const { todos } = useAppSelector((state) => state.todos);
+
   const dispatch = useAppDispatch();
+
   const {
     formState: { errors },
     register,
     reset,
     handleSubmit,
+    // control,
   } = useForm();
+
   const onSubmit = handleSubmit(({ todo }) => {
     dispatch(startCreateTodo({ name: todo }));
     reset();
@@ -39,6 +43,7 @@ export const TodoView = () => {
                     className="form-control form-control-lg border-0 add-todo-input bg-transparent rounded"
                     type="text"
                     placeholder="Add new .."
+                    // value={activeNote?.name}
                     {...register("todo", {
                       required: {
                         value: true,
