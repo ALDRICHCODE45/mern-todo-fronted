@@ -1,12 +1,18 @@
-import { useAppDispatch } from "../../hooks/store";
+import { useAppDispatch, useAppSelector } from "../../hooks/store";
 import {
+  startCreateTodo,
   startDeletingTodo,
   startUpdatingNote,
   startchanginTodoDone,
 } from "../../store/todos/thunks";
 
 export const useTodos = () => {
+  const { todos } = useAppSelector((state) => state.todos);
   const dispatch = useAppDispatch();
+
+  const oncreateTodo = (name: string) => {
+    dispatch(startCreateTodo({ name }));
+  };
 
   const onDeleteTodo = (id: number) => {
     dispatch(startDeletingTodo(id));
@@ -22,8 +28,11 @@ export const useTodos = () => {
 
   return {
     // properties
+    todos,
+    // methods
     onDeleteTodo,
     onChangeDoneTodo,
     onUpdateNote,
+    oncreateTodo,
   };
 };

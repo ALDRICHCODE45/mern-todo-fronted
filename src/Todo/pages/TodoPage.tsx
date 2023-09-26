@@ -1,5 +1,4 @@
 import { IconButton } from "@mui/material";
-// import { useAppSelector } from "../../hooks/store";
 import { JournalLayout } from "../layout/TodoLayout";
 import FlashOnIcon from "@mui/icons-material/FlashOn";
 import { TodoView } from "../views/TodoView";
@@ -7,8 +6,6 @@ import "./styles.css";
 import confetti from "canvas-confetti";
 
 export const TodoPage = () => {
-  // const { displayName } = useAppSelector((state) => state.auth);
-
   return (
     <>
       <JournalLayout>

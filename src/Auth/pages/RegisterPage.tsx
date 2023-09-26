@@ -4,11 +4,8 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useAppDispatch } from "../../hooks/store";
 import { startCreateUserWithEmailAndPassword } from "../../store/auth/thunks";
-// import { useAppSelector } from "../../hooks/store";
-// import { Link as LinkReact } from "react-router-dom";
 
 export const RegisterPage = () => {
-  // const {} = useAppSelector(state => state.auth)
   const dispatch = useAppDispatch();
   const {
     register,
@@ -96,12 +93,7 @@ export const RegisterPage = () => {
             </Grid>
 
             <Grid item xs={12}>
-              <Button
-                // disabled={isCheckingAuthentication}
-                type="submit"
-                variant="contained"
-                fullWidth
-              >
+              <Button type="submit" variant="contained" fullWidth>
                 <Typography sx={{ mt: 1 }}>Crear Cuenta</Typography>
               </Button>
             </Grid>

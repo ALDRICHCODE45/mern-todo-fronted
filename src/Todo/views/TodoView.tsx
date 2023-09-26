@@ -1,25 +1,25 @@
 import AssignmentIcon from "@mui/icons-material/Assignment";
-import { Todo } from "../components/Todo";
-import { useAppDispatch, useAppSelector } from "../../hooks/store";
 import { useForm } from "react-hook-form";
-import { startCreateTodo } from "../../store/todos/thunks";
 import { TextField } from "@mui/material";
+import { TodoList } from "../components/TodoList";
+import { useTodos } from "../hooks/useTodos";
 
 export const TodoView = () => {
-  const { todos } = useAppSelector((state) => state.todos);
+  const { todos, oncreateTodo } = useTodos();
 
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
 
   const {
     formState: { errors },
     register,
     reset,
     handleSubmit,
-    // control,
   } = useForm();
 
   const onSubmit = handleSubmit(({ todo }) => {
-    dispatch(startCreateTodo({ name: todo }));
+    // dispatch(startCreateTodo({ name: todo }));
+    oncreateTodo(todo);
+
     reset();
   });
 
@@ -43,7 +43,6 @@ export const TodoView = () => {
                     className="form-control form-control-lg border-0 add-todo-input bg-transparent rounded"
                     type="text"
                     placeholder="Add new .."
-                    // value={activeNote?.name}
                     {...register("todo", {
                       required: {
                         value: true,
@@ -83,18 +82,7 @@ export const TodoView = () => {
           </div>
         </div>
 
-        {todos.length ? (
-          todos.map((todo) => (
-            <Todo
-              key={todo.id}
-              done={todo.done}
-              name={todo.name}
-              id={todo.id}
-            />
-          ))
-        ) : (
-          <h2>Agrega Una tarea</h2>
-        )}
+        {todos.length ? <TodoList /> : <h2>Agrega Una tarea</h2>}
       </div>
     </>
   );
