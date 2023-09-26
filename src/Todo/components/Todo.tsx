@@ -36,11 +36,11 @@ export const Todo = ({ name, id, done }: props) => {
     event.preventDefault();
     onUpdateNote(id, newTaskName as string);
     showTodoSaveIcon(false);
+    changeIconDoneToFalse();
   };
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     showTodoSaveIcon(true);
-    changeIconDoneToFalse();
     newTodoName(event.target.value);
   };
 
