@@ -1,5 +1,10 @@
 import { AppDispatch } from "../store";
-import { createTodo, deleteTodo, updateNote } from "./todosSlice";
+import {
+  createTodo,
+  deleteTodo,
+  updateNote,
+  updateTodoDone,
+} from "./todosSlice";
 
 export const startCreateTodo =
   ({ name }: { name: string }) =>
@@ -18,4 +23,13 @@ export const startDeletingTodo = (id: number) => (dispatch: AppDispatch) => {
 export const startUpdatingNote =
   (id: number, name: string) => (dispatch: AppDispatch) => {
     dispatch(updateNote({ id, name }));
+  };
+
+export const startchanginTodoDone =
+  (id: number, done: boolean) => (dispatch: AppDispatch) => {
+    const data = {
+      id,
+      done,
+    };
+    dispatch(updateTodoDone(data));
   };

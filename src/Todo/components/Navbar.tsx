@@ -8,16 +8,10 @@ import {
 
   //   Typography,
 } from "@mui/material";
-import { useAppDispatch, useAppSelector } from "../../hooks/store";
-import { startLogoutUser } from "../../store/auth/thunks";
+import { useAuth } from "../../Auth/hooks/useAuth";
 
 export const Navbar = () => {
-  const { displayName } = useAppSelector((state) => state.auth);
-  const dispatch = useAppDispatch();
-
-  const onLogOut = () => {
-    dispatch(startLogoutUser());
-  };
+  const { onLogOut, displayName } = useAuth();
 
   return (
     <AppBar position="fixed">

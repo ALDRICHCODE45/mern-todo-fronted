@@ -10,11 +10,7 @@ export const JournalLayout = ({ children }: props) => {
       sx={{ display: "flex" }}
       className=" animate__animated animate__fadeIn"
     >
-      {/* navbar */}
       <Navbar />
-
-      {/* sidebar*/}
-      {/* <SideBar drawerWidth={drawerWidth} /> */}
 
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <Toolbar />

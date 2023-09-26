@@ -12,14 +12,12 @@ interface payloadToUpdate {
   name: string;
   id: number;
 }
+interface ChangeTodoDone {
+  id: number;
+  done: boolean;
+}
 
-const tasks: Task[] = [
-  {
-    name: "ir a la escuela",
-    done: true,
-    id: 344,
-  },
-];
+const tasks: Task[] = [];
 
 export const todosSlice = createSlice({
   name: "todos",
@@ -40,8 +38,15 @@ export const todosSlice = createSlice({
         return note;
       });
     },
+    updateTodoDone: (state, { payload }: PayloadAction<ChangeTodoDone>) => {
+      state.todos = state.todos.map((todo) => {
+        if (payload.id === todo.id) return { ...todo, done: payload.done };
+        return todo;
+      });
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { createTodo, deleteTodo, updateNote } = todosSlice.actions;
+export const { createTodo, deleteTodo, updateNote, updateTodoDone } =
+  todosSlice.actions;

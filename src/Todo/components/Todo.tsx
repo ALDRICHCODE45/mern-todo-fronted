@@ -1,12 +1,13 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect } from "react";
+
+import { useTodos } from "../hooks/useTodos";
+import { useTodo } from "./hooks/useTodo";
+
+import { Button, IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SendIcon from "@mui/icons-material/Send";
-
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
-import { Button, IconButton } from "@mui/material";
-import { useAppDispatch } from "../../hooks/store";
-// import SaveIcon from "@mui/icons-material/Save";
-import { startDeletingTodo, startUpdatingNote } from "../../store/todos/thunks";
-import { useState } from "react";
 
 interface props {
   name: string;
@@ -14,27 +15,33 @@ interface props {
   done: boolean;
 }
 
-type name = string;
-
 export const Todo = ({ name, id, done }: props) => {
-  const dispatch = useAppDispatch();
-  const [taskName, setTaskName] = useState<name>();
-  const [saveNote, setSaveNote] = useState<boolean>(false);
+  const {
+    newTaskName,
+    showSaveTodoIcon,
+    changeTaskDone,
+    changeIconDoneToFalse,
+    showTodoSaveIcon,
+    newTodoName,
+    changeIconDone,
+  } = useTodo();
 
-  const onDeleteTodo = (id: number) => {
-    dispatch(startDeletingTodo(id));
-  };
+  const { onChangeDoneTodo, onDeleteTodo, onUpdateNote } = useTodos();
+
+  useEffect(() => {
+    onChangeDoneTodo(id, changeTaskDone);
+  }, [changeTaskDone]);
 
   const onSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
-    console.log(taskName);
-    dispatch(startUpdatingNote(id, taskName as string));
-    setSaveNote(false);
+    onUpdateNote(id, newTaskName as string);
+    showTodoSaveIcon(false);
   };
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSaveNote(true);
-    setTaskName(event.target.value);
+    showTodoSaveIcon(true);
+    changeIconDoneToFalse();
+    newTodoName(event.target.value);
   };
 
   return (
@@ -43,7 +50,7 @@ export const Todo = ({ name, id, done }: props) => {
         <div className="row px-3 align-items-center todo-item rounded">
           <div className="col-auto m-1 p-0 d-flex align-items-center">
             <h2 className="m-0 p-0">
-              <IconButton>
+              <IconButton onClick={() => changeIconDone()}>
                 <TaskAltIcon
                   sx={{ height: 30, color: `${done ? "#70be44" : "#ff1744"}` }}
                 />
@@ -68,7 +75,7 @@ export const Todo = ({ name, id, done }: props) => {
                 </IconButton>
               </h5>
               <h5
-                style={{ display: `${saveNote ? "" : "none"}` }}
+                style={{ display: `${showSaveTodoIcon ? "" : "none"}` }}
                 className="m-0 p-0 w-1 h-1 px-2"
               >
                 {/* <IconButton
@@ -81,8 +88,8 @@ export const Todo = ({ name, id, done }: props) => {
                 </IconButton> */}
                 <Button
                   onClick={() => {
-                    dispatch(startUpdatingNote(id, taskName as string));
-                    setSaveNote(false);
+                    onUpdateNote(id, newTaskName as string);
+                    showTodoSaveIcon(false);
                   }}
                   variant="contained"
                   endIcon={<SendIcon sx={{ color: "#8dc26a" }} />}
