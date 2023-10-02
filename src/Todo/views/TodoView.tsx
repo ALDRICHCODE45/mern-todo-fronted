@@ -62,22 +62,7 @@ export const TodoView = () => {
           </div>
         </div>
         <div className="p-2 mx-4 border-black-25 border-bottom"></div>
-        <div className="row m-1 p-3 px-5 justify-content-end">
-          <div className="col-auto d-flex align-items-center">
-            <label className="text-secondary my-2 pr-2 view-opt-label">
-              Filter
-            </label>
-            <select
-              defaultValue={"all"}
-              className="custom-select custom-select-sm btn my-2"
-            >
-              <option value="all">All</option>
-              <option value="completed">Completed</option>
-              <option value="active">Active</option>
-              <option value="has-due-date">Has due date</option>
-            </select>
-          </div>
-        </div>
+        <div className="m-1 p-3 px-5 "></div>
 
         {todos.length ? (
           <TodoList />

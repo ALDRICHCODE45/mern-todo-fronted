@@ -1,3 +1,4 @@
+import { toast } from "sonner";
 import TodoApi from "../../api/TodoApi";
 import { useAppDispatch, useAppSelector } from "../../hooks/store";
 import {
@@ -26,6 +27,7 @@ export const useTodos = () => {
 
   const onDeleteTodo = (id: number) => {
     dispatch(startDeletingTodo(id));
+    toast.success("nota eliminada");
   };
 
   const onChangeDoneTodo = (id: number, change: boolean) => {
@@ -34,6 +36,7 @@ export const useTodos = () => {
 
   const onUpdateNote = (id: number, taskNametoUpdate: string) => {
     dispatch(startUpdatingNote(id, taskNametoUpdate));
+    toast.success("nota actualizada");
   };
 
   const checkTodos = async () => {

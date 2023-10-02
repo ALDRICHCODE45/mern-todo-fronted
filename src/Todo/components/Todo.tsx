@@ -8,6 +8,7 @@ import { Button, IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SendIcon from "@mui/icons-material/Send";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
+import { toast } from "sonner";
 
 interface props {
   name: string;
@@ -70,7 +71,18 @@ export const Todo = ({ name, id, done }: props) => {
           <div className="col-auto m-1 p-0 todo-actions">
             <div className=" d-flex align-items-center justify-content-start">
               <h5 className="m-0 p-0 px-2">
-                <IconButton onClick={() => onDeleteTodo(id)}>
+                <IconButton
+                  onClick={() => {
+                    toast.error("Deseas eliminar la nota?", {
+                      action: {
+                        label: "Aceptar",
+                        onClick: () => {
+                          onDeleteTodo(id);
+                        },
+                      },
+                    });
+                  }}
+                >
                   <DeleteIcon sx={{ color: "#ff0000" }} />
                 </IconButton>
               </h5>
@@ -78,23 +90,21 @@ export const Todo = ({ name, id, done }: props) => {
                 style={{ display: `${showSaveTodoIcon ? "" : "none"}` }}
                 className="m-0 p-0 w-1 h-1 px-2"
               >
-                {/* <IconButton
-                  onClick={() => {
-                    dispatch(startUpdatingNote(id, taskName as string));
-                    setSaveNote(false);
-                  }}
-                >
-                  <SaveIcon sx={{ color: "#008F39" }} />
-                </IconButton> */}
                 <Button
                   onClick={() => {
-                    onUpdateNote(id, newTaskName as string);
-                    showTodoSaveIcon(false);
+                    toast.error("Deseas actualizar la nota?", {
+                      action: {
+                        label: "Aceptar",
+                        onClick: () => {
+                          onUpdateNote(id, newTaskName as string);
+                          showTodoSaveIcon(false);
+                        },
+                      },
+                    });
                   }}
                   variant="contained"
                   endIcon={<SendIcon sx={{ color: "#8dc26a" }} />}
                 >
-                  {/* Send */}
                   Save
                 </Button>
               </h5>

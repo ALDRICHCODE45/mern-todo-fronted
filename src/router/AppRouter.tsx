@@ -23,13 +23,15 @@ export const AppRouter = () => {
   }, [changestatusAuthenticated]);
 
   return (
-    <Routes>
-      {status === "authenticated" ? (
-        <Route path="/*" element={<TodoRoutes />} />
-      ) : (
-        <Route path="/auth/*" element={<AuthRoutes />} />
-      )}
-      <Route path="/*" element={<Navigate to="/auth/login" />} />
-    </Routes>
+    <>
+      <Routes>
+        {status === "authenticated" ? (
+          <Route path="/*" element={<TodoRoutes />} />
+        ) : (
+          <Route path="/auth/*" element={<AuthRoutes />} />
+        )}
+        <Route path="/*" element={<Navigate to="/auth/login" />} />
+      </Routes>
+    </>
   );
 };
