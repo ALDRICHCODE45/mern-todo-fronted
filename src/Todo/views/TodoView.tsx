@@ -1,13 +1,12 @@
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import { useForm } from "react-hook-form";
-import { TextField } from "@mui/material";
+import { Grid, TextField } from "@mui/material";
 import { TodoList } from "../components/TodoList";
 import { useTodos } from "../hooks/useTodos";
+import { CreateTask } from "../components/createTask";
 
 export const TodoView = () => {
   const { todos, oncreateTodo } = useTodos();
-
-  // const dispatch = useAppDispatch();
 
   const {
     formState: { errors },
@@ -17,9 +16,7 @@ export const TodoView = () => {
   } = useForm();
 
   const onSubmit = handleSubmit(({ todo }) => {
-    // dispatch(startCreateTodo({ name: todo }));
     oncreateTodo(todo);
-
     reset();
   });
 
@@ -82,7 +79,13 @@ export const TodoView = () => {
           </div>
         </div>
 
-        {todos.length ? <TodoList /> : <h2>Agrega Una tarea</h2>}
+        {todos.length ? (
+          <TodoList />
+        ) : (
+          <Grid item xs={12} justifyContent="center">
+            <CreateTask />
+          </Grid>
+        )}
       </div>
     </>
   );

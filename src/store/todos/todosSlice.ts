@@ -25,9 +25,9 @@ export const todosSlice = createSlice({
     todos: tasks,
   },
   reducers: {
-    createTodo: (state, { payload }: PayloadAction<TaskWidthOutId>) => {
-      const addIdToTask = { ...payload, id: Math.random() };
-      state.todos.push(addIdToTask);
+    createTodo: (state, { payload }: PayloadAction<Task>) => {
+      // const addIdToTask = { ...payload, id: Math.random() };
+      state.todos.push(payload);
     },
     deleteTodo: (state, { payload }: PayloadAction<number>) => {
       state.todos = state.todos.filter((todo) => todo.id !== payload);
@@ -44,9 +44,21 @@ export const todosSlice = createSlice({
         return todo;
       });
     },
+    setTodosFromDb: (state, { payload }: PayloadAction<Task[]>) => {
+      state.todos = payload;
+    },
+    cleanTodos: (state) => {
+      state.todos = [];
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { createTodo, deleteTodo, updateNote, updateTodoDone } =
-  todosSlice.actions;
+export const {
+  createTodo,
+  deleteTodo,
+  updateNote,
+  updateTodoDone,
+  cleanTodos,
+  setTodosFromDb,
+} = todosSlice.actions;

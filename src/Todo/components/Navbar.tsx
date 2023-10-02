@@ -1,13 +1,5 @@
 import { LogoutOutlined, MenuOutlined } from "@mui/icons-material";
-import {
-  AppBar,
-  Avatar,
-  Grid,
-  IconButton,
-  Toolbar,
-
-  //   Typography,
-} from "@mui/material";
+import { AppBar, Avatar, Grid, IconButton, Toolbar } from "@mui/material";
 import { useAuth } from "../../Auth/hooks/useAuth";
 
 export const Navbar = () => {
@@ -30,10 +22,6 @@ export const Navbar = () => {
           justifyContent="space-between"
           alignItems="center"
         >
-          {/* <Typography variant="h6" noWrap component="div">
-            {`Hola ${displayName} Bienvenido`}
-          </Typography> */}
-
           <Avatar sx={{ bgcolor: "#ff1744" }}>
             {displayName.charAt(0).toUpperCase()}
           </Avatar>

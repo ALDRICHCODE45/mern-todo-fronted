@@ -4,7 +4,9 @@ interface UserFieldsCreateUser {
   name: string;
   email: string;
   password: string;
+  id: number;
 }
+type ErrorMessage = string;
 
 export const authSlice = createSlice({
   name: "auth",
@@ -12,6 +14,7 @@ export const authSlice = createSlice({
     status: "no-authenticated", // 'checking' | 'authenticated'
     email: "",
     password: "",
+    id: 0,
     displayName: "",
     errorMessage: "",
   },
@@ -21,18 +24,24 @@ export const authSlice = createSlice({
       state.displayName = payload.name;
       state.email = payload.email;
       state.password = payload.password;
+      state.id = payload.id;
     },
     logOut: (state) => {
       state.status = "no-authenticated";
       state.displayName = "";
       state.email = "";
       state.password = "";
+      state.id = 0;
     },
     checkingCredentials: (state) => {
       state.status = "checking";
+    },
+    setErrorMessage: (state, { payload }: PayloadAction<ErrorMessage>) => {
+      state.errorMessage = payload;
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { login, checkingCredentials, logOut } = authSlice.actions;
+export const { login, checkingCredentials, logOut, setErrorMessage } =
+  authSlice.actions;

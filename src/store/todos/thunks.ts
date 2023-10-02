@@ -1,3 +1,4 @@
+import TodoApi from "../../api/TodoApi";
 import { AppDispatch } from "../store";
 import {
   createTodo,
@@ -8,20 +9,26 @@ import {
 
 export const startCreateTodo =
   ({ name }: { name: string }) =>
-  (dispatch: AppDispatch) => {
-    const data = {
-      name,
+  async (dispatch: AppDispatch) => {
+    const { data } = await TodoApi.post("/todos/createtodo", { name });
+
+    const todo = {
+      name: data.newTodo.name,
       done: false,
+      id: data.newTodo.id,
     };
-    dispatch(createTodo(data));
+    dispatch(createTodo(todo));
   };
 
-export const startDeletingTodo = (id: number) => (dispatch: AppDispatch) => {
-  dispatch(deleteTodo(id));
-};
+export const startDeletingTodo =
+  (id: number) => async (dispatch: AppDispatch) => {
+    await TodoApi.delete(`/todos/deleteTodo/${id}`);
+    dispatch(deleteTodo(id));
+  };
 
 export const startUpdatingNote =
-  (id: number, name: string) => (dispatch: AppDispatch) => {
+  (id: number, name: string) => async (dispatch: AppDispatch) => {
+    await TodoApi.put(`/todos/update/${id}`, { name });
     dispatch(updateNote({ id, name }));
   };
 

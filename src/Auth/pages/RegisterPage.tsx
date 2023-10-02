@@ -1,4 +1,4 @@
-import { Alert, Button, Grid, TextField, Typography } from "@mui/material";
+import { Button, Grid, TextField, Typography } from "@mui/material";
 import { AuthLayout } from "../layout/AuthLayout";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -19,7 +19,6 @@ export const RegisterPage = () => {
     reset();
   });
 
-  const errorMessage = "";
   return (
     <AuthLayout titulo="Register">
       <form className=" animate__animated animate__fadeIn" onSubmit={onSubmit}>
@@ -88,10 +87,6 @@ export const RegisterPage = () => {
           </Grid>
 
           <Grid container spacing={2} sx={{ mb: 2, mt: 2 }}>
-            <Grid item xs={12}>
-              <Alert severity="error">{errorMessage}</Alert>
-            </Grid>
-
             <Grid item xs={12}>
               <Button type="submit" variant="contained" fullWidth>
                 <Typography sx={{ mt: 1 }}>Crear Cuenta</Typography>

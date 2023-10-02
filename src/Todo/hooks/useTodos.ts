@@ -1,3 +1,4 @@
+import TodoApi from "../../api/TodoApi";
 import { useAppDispatch, useAppSelector } from "../../hooks/store";
 import {
   startCreateTodo,
@@ -5,9 +6,18 @@ import {
   startUpdatingNote,
   startchanginTodoDone,
 } from "../../store/todos/thunks";
-
+import { setTodosFromDb } from "../../store/todos/todosSlice";
+interface todo {
+  name: string;
+  _id: number;
+  id: number;
+  __v: number;
+  done?: boolean;
+  user: number;
+}
 export const useTodos = () => {
   const { todos } = useAppSelector((state) => state.todos);
+  const { id } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
 
   const oncreateTodo = (name: string) => {
@@ -26,6 +36,22 @@ export const useTodos = () => {
     dispatch(startUpdatingNote(id, taskNametoUpdate));
   };
 
+  const checkTodos = async () => {
+    try {
+      if (id === 0) return;
+      const { data } = await TodoApi.get(`/todos/${id}`);
+      if (!data.ok) return;
+      const newTodos = data.todos.map((todo: todo) => {
+        const { name, _id } = todo;
+        return { name, id: _id, done: false };
+      });
+
+      dispatch(setTodosFromDb(newTodos));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return {
     // properties
     todos,
@@ -34,5 +60,6 @@ export const useTodos = () => {
     onChangeDoneTodo,
     onUpdateNote,
     oncreateTodo,
+    checkTodos,
   };
 };
