@@ -32,6 +32,7 @@ export const authSlice = createSlice({
       state.email = "";
       state.password = "";
       state.id = 0;
+      state.errorMessage = "";
     },
     checkingCredentials: (state) => {
       state.status = "checking";

@@ -14,7 +14,7 @@ export const CreateTask = () => {
         }}
       >
         <Grid container direction="row" justifyContent="center">
-          <AddCircleRoundedIcon sx={{ fontSize: 40, color: "white" }} />
+          <AddCircleRoundedIcon sx={{ fontSize: 100, color: "white" }} />
         </Grid>
       </Grid>
     </>

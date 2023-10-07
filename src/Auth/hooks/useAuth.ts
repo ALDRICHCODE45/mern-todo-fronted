@@ -16,9 +16,11 @@ export const useAuth = () => {
     dispatch(startLogoutUser());
     localStorage.clear();
   };
+
   const loginUser = ({ email, password }: loginUser) => {
     dispatch(startLoginUser({ email, password }));
   };
+
   const checkAuthToken = async () => {
     const token = localStorage.getItem("token");
     if (!token) return dispatch(logOut());
