@@ -1,3 +1,4 @@
+import confetti from "canvas-confetti";
 import { useState } from "react";
 
 type name = string;
@@ -9,6 +10,7 @@ export const useTodo = () => {
 
   const changeIconDone = () => {
     setChangeTaskDone((changeTaskDone) => !changeTaskDone);
+    confetti();
   };
 
   const changeIconDoneToFalse = () => {
